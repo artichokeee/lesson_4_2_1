@@ -1,0 +1,1301 @@
+{
+	"info": {
+		"_postman_id": "e39546a0-34cb-45e1-8a16-34ed3b738252",
+		"name": "sql_verifier",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20439790"
+	},
+	"item": [
+		{
+			"name": "Lesson 4.1",
+			"item": [
+				{
+					"name": "Registration",
+					"item": [
+						{
+							"name": "Registration a new student",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201 Created\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});",
+											"",
+											"pm.test(\"The response has a header server with value Cowboy\", function () {",
+											"    pm.response.to.have.header(\"Server\", \"Cowboy\"); ",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": 1,\n  \"login\": \"{{$randomNoun}}\",\n  \"firstName\": \"{{$randomFirstName}}\",\n  \"lastName\": \"{{$randomLastName}}\",\n  \"email\": \"{{$randomEmail}}\",\n  \"imageUrl\": \"string\",\n  \"activated\": true,\n  \"langKey\": \"string\",\n  \"createdBy\": \"{{admin}}\",\n  \"createdDate\": \"2023-11-16T19:34:20.909Z\",\n  \"lastModifiedBy\": \"{{admin}}\",\n  \"lastModifiedDate\": \"2023-11-16T19:34:20.909Z\",\n  \"authorities\": [\n    \"ROLE_USER_STUDENT\"\n  ],\n  \"password\": \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/register",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration a new teacher",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201 Created\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});",
+											"",
+											"pm.test(\"The response has a header server with value Cowboy\", function () {",
+											"    pm.response.to.have.header(\"Server\", \"Cowboy\"); ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": 1,\n  \"login\": \"{{$randomNoun}}\",\n  \"firstName\": \"{{$randomFirstName}}\",\n  \"lastName\": \"{{$randomLastName}}\",\n  \"email\": \"{{$randomEmail}}\",\n  \"imageUrl\": \"string\",\n  \"activated\": true,\n  \"langKey\": \"en\",\n  \"createdBy\": \"{{admin}}\",\n  \"createdDate\": \"2023-11-16T19:34:20.909Z\",\n  \"lastModifiedBy\": \"{{admin}}\",\n  \"lastModifiedDate\": \"2023-11-16T19:34:20.909Z\",\n  \"authorities\": [\n    \"ROLE_USER_TEACHER\"\n  ],\n  \"password\": \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/register",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration a new admin is prohibited",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400 Bad Request\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});",
+											"",
+											"pm.test(\"The response has a header server with value Cowboy\", function () {",
+											"    pm.response.to.have.header(\"Server\", \"Cowboy\"); ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": 1,\n  \"login\": \"{{$randomNoun}}\",\n  \"firstName\": \"{{$randomFirstName}}\",\n  \"lastName\": \"{{$randomLastName}}\",\n  \"email\": \"{{$randomEmail}}\",\n  \"imageUrl\": \"string\",\n  \"activated\": true,\n  \"langKey\": \"en\",\n  \"createdBy\": \"{{admin}}\",\n  \"createdDate\": \"{2023-11-16T19:34:20.909Z}\",\n  \"lastModifiedBy\": \"{{admin}}\",\n  \"lastModifiedDate\": \"2023-11-16T19:34:20.909Z\",\n  \"authorities\": [\n    \"ROLE_USER_ADMIN\"\n  ],\n  \"password\": \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/register",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration a new user without body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400 Bad Request\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});",
+											"",
+											"pm.test(\"The JSON has a detail key with additional info\", function () {",
+											"    pm.expect(pm.response.json().detail).to.eql(\"Failed to read request\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": 1,\n  \"login\": \"{{$randomNoun}}\",\n  \"firstName\": \"{{$randomFirstName}}\",\n  \"lastName\": \"{{$randomLastName}}\",\n  \"email\": \"{{$randomEmail}}\",\n  \"imageUrl\": \"string\",\n  \"activated\": true,\n  \"langKey\": \"en\",\n  \"createdBy\": \"{{admin}}\",\n  \"createdDate\": \"{2023-11-16T19:34:20.909Z}\",\n  \"lastModifiedBy\": \"{{admin}}\",\n  \"lastModifiedDate\": \"2023-11-16T19:34:20.909Z\",\n  \"authorities\": [\n    \"ROLE_USER_ADMIN\"\n  ],\n  \"password\": \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/register",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration with empty login value",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400 Bad Request\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});",
+											"",
+											"pm.test(\"The JSON has a title key with additional info\", function () {",
+											"    pm.expect(pm.response.json().title).to.eql(\"Method argument not valid\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": 1,\n  \"login\": \"\",\n  \"firstName\": \"{{$randomFirstName}}\",\n  \"lastName\": \"{{$randomLastName}}\",\n  \"email\": \"{{$randomEmail}}\",\n  \"imageUrl\": \"string\",\n  \"activated\": true,\n  \"langKey\": \"ru\",\n  \"createdBy\": \"{{admin}}\",\n  \"createdDate\": \"2023-11-16T19:34:20.909Z\",\n  \"lastModifiedBy\": \"{{admin}}\",\n  \"lastModifiedDate\": \"2023-11-16T19:34:20.909Z\",\n  \"authorities\": [\n    \"ROLE_USER_STUDENT\"\n  ],\n  \"password\": \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/register",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registration a new user with numbers in the firstname value",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400 Bad Request\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});",
+											"",
+											"pm.test(\"The JSON has a detail key with additional info\", function () {",
+											"    pm.expect(pm.response.json().detail).to.eql(\"Failed to read request\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": 1,\n  \"login\": \"{{$randomNoun}}\",\n  \"firstName\": {{$randomInt}},\n  \"lastName\": \"{{$randomLastName}}\",\n  \"email\": \"{{$randomEmail}}\",\n  \"imageUrl\": \"string\",\n  \"activated\": true,\n  \"langKey\": \"en\",\n  \"createdBy\": \"{{admin}}\",\n  \"createdDate\": \"{2023-11-16T19:34:20.909Z}\",\n  \"lastModifiedBy\": \"{{admin}}\",\n  \"lastModifiedDate\": \"2023-11-16T19:34:20.909Z\",\n  \"authorities\": [\n    \"ROLE_USER_ADMIN\"\n  ],\n  \"password\": \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/register",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Authentication",
+					"item": [
+						{
+							"name": "Authentication of the student",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});",
+											"",
+											"pm.test(\"The id token is available in the body\", function () {",
+											"    pm.expect(pm.response.json()).to.have.property(\"id_token\"); ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"username\": \"{{studentUserName}}\",\n\"password\": \"{{studentPassword}}\",\n\"rememberMe\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/authenticate",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"authenticate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Authentication of the teacher",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});",
+											"",
+											"pm.test(\"The id token is available in the body\", function () {",
+											"    pm.expect(pm.response.json()).to.have.property(\"id_token\"); ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"username\": \"{{teacherUserName}}\",\n\"password\": \"{{teacherPassword}}\",\n\"rememberMe\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/authenticate",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"authenticate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Authentication of the admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});",
+											"",
+											"pm.test(\"The id token is available in the body\", function () {",
+											"    pm.expect(pm.response.json()).to.have.property(\"id_token\"); ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"username\": \"{{adminUserName}}\",\n\"password\": \"{{adminPassword}}\",\n\"rememberMe\": true\n}\n\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/authenticate",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"authenticate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Authentication with invalid username",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401 Unathorized\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});",
+											"",
+											"pm.test(\"The JSON has a detail key with additional info\", function () {",
+											"    pm.expect(pm.response.json().detail).to.eql(\"Bad credentials\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"username\": \"123\",\n\"password\": \"{{studentPassword}}\",\n\"rememberMe\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/authenticate",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"authenticate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Authentication  with invalid password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400 Bad Request\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});",
+											"",
+											"pm.test(\"The JSON has a title key with additional info\", function () {",
+											"    pm.expect(pm.response.json().title).to.eql(\"Method argument not valid\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"username\": \"{{teacherUserName}}\",\n\"password\": \"\",\n\"rememberMe\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/authenticate",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"authenticate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Authentication with non-activated user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 500 Internal Server Error\", function () {",
+											"    pm.response.to.have.status(500);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});",
+											"",
+											"pm.test(\"The JSON has a detail key with username value\", function () {",
+											"    pm.expect(pm.response.json().detail).to.eql(\"User driver was not activated\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"username\": \"{{nonActiveUserName}}\",\n\"password\": \"{{nonActivePassword}}\",\n\"rememberMe\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/authenticate",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"authenticate"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Lesson 4.2.1",
+			"item": [
+				{
+					"name": "Tasks",
+					"item": [
+						{
+							"name": "Get a lisf of tasks",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", () => {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});",
+											"",
+											"const task = pm.response.json()",
+											"",
+											"pm.environment.set(\"taskID\", task[0].id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/api/tasks",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"tasks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get an info about task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", () => {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});",
+											"",
+											"pm.test(\"Verify that all values are correct \", () => {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData.id).that.is.a('number');",
+											"    pm.expect(jsonData.text).that.is.a('string');",
+											"    pm.expect(jsonData.answer).that.is.a('string');",
+											"    pm.expect(jsonData.title).that.is.a('string');",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/api/tasks/{{taskID}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"tasks",
+										"{{taskID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", () => {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});",
+											"",
+											"",
+											"pm.test(\"Verify that all values are correct \", () => {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData.id).that.is.a('number');",
+											"    pm.expect(jsonData.text).that.is.a('string');",
+											"    pm.expect(jsonData.answer).that.is.a('string');",
+											"    pm.expect(jsonData.title).that.is.a('string');",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.variables.set(\"createdTaskID\", _.random(00000,99999));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": {{createdTaskID}},\n  \"text\": \"{{$randomWords}}\",\n  \"answer\": \"{{$randomWords}}\",\n  \"title\": \"{{$randomWords}}\"\n}  \n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/tasks",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"tasks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Task without body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", () => {",
+											"    pm.response.to.have.status(400);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/api/tasks",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"tasks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update a Task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", () => {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});",
+											"",
+											"",
+											"pm.test(\"Verify that all values are correct \", () => {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData.id).that.is.a('number');",
+											"    pm.expect(jsonData.text).that.is.a('string');",
+											"    pm.expect(jsonData.answer).that.is.a('string');",
+											"    pm.expect(jsonData.title).that.is.a('string');",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": {{taskID}},\n  \"text\": \"{{$randomWords}}\",\n  \"answer\": \"{{$randomWords}}\",\n  \"title\": \"{{$randomWords}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/tasks/{{taskID}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"tasks",
+										"{{taskID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update a text of Task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 500\", () => {",
+											"    pm.response.to.have.status(500);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", () => {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": {{taskID}},\n  \"text\": \"{{$randomWords}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/tasks/{{taskID}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"tasks",
+										"{{taskID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update a Task without body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", () => {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", () => {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/api/tasks/{{taskID}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"tasks",
+										"{{taskID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update a text of task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", () => {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});",
+											"",
+											"pm.test(\"Verify that all values are correct \", () => {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData.id).that.is.a('number');",
+											"    pm.expect(jsonData.text).that.is.a('string');",
+											"    pm.expect(jsonData.answer).that.is.a('string');",
+											"    pm.expect(jsonData.title).that.is.a('string');",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": {{taskID}},\n  \"text\": \"{{$randomWords}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/tasks/{{taskID}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"tasks",
+										"{{taskID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update an answer of task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", () => {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});",
+											"",
+											"pm.test(\"Verify that all values are correct \", () => {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData.id).that.is.a('number');",
+											"    pm.expect(jsonData.text).that.is.a('string');",
+											"    pm.expect(jsonData.answer).that.is.a('string');",
+											"    pm.expect(jsonData.title).that.is.a('string');",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": {{taskID}},\n  \"answer\": \"{{$randomWords}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/tasks/{{taskID}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"tasks",
+										"{{taskID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update a title of task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", () => {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});",
+											"",
+											"pm.test(\"Verify that all values are correct \", () => {",
+											"    const jsonData = pm.response.json();",
+											"    pm.expect(jsonData.id).that.is.a('number');",
+											"    pm.expect(jsonData.text).that.is.a('string');",
+											"    pm.expect(jsonData.answer).that.is.a('string');",
+											"    pm.expect(jsonData.title).that.is.a('string');",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": {{taskID}},\n  \"title\": \"{{$randomWords}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/tasks/{{taskID}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"tasks",
+										"{{taskID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update a task without body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 415\", () => {",
+											"    pm.response.to.have.status(415);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", () => {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/tasks/{{taskID}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"tasks",
+										"{{taskID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a Task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response Time is below than 500 ms\", () => {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/api/tasks//{{taskID}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"tasks",
+										"",
+										"{{taskID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{accessToken}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "https://sqlverifier-50d286d70656.herokuapp.com",
+			"type": "string"
+		},
+		{
+			"key": "studentUserName",
+			"value": "panel",
+			"type": "string"
+		},
+		{
+			"key": "studentPassword",
+			"value": "123456",
+			"type": "string"
+		},
+		{
+			"key": "teacherUserName",
+			"value": "card",
+			"type": "string"
+		},
+		{
+			"key": "teacherPassword",
+			"value": "123456",
+			"type": "string"
+		},
+		{
+			"key": "adminUserName",
+			"value": "protocol",
+			"type": "string"
+		},
+		{
+			"key": "adminPassword",
+			"value": "123456",
+			"type": "string"
+		},
+		{
+			"key": "nonActiveUserName",
+			"value": "driver",
+			"type": "string"
+		},
+		{
+			"key": "nonActivePassword",
+			"value": "123456",
+			"type": "string"
+		},
+		{
+			"key": "admin",
+			"value": "admin",
+			"type": "string"
+		}
+	]
+}
