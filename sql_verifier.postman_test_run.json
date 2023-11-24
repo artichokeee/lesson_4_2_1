@@ -1,0 +1,113 @@
+{
+	"id": "de4fc1f1-f7f1-416b-820b-8cb9a7109a22",
+	"name": "sql_verifier",
+	"timestamp": "2023-11-24T22:24:51.042Z",
+	"collection_id": "20439790-e39546a0-34cb-45e1-8a16-34ed3b738252",
+	"folder_id": 0,
+	"environment_id": "20439790-4c3ac963-2454-4f1e-b09c-8b6677119873",
+	"totalPass": 9,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2023-11-24T22:24:47.628Z",
+	"totalFail": 18,
+	"results": [
+		{
+			"id": "a8046a2f-1c3f-4217-a22d-0fe7f862ffa9",
+			"name": "Create a Task",
+			"url": "https://sqlverifier-50d286d70656.herokuapp.com/api/tasks",
+			"time": 307,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 200": false,
+				"Response Time is below than 500 ms": true,
+				"Verify that all values are correct ": false
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 0,
+					"fail": 9
+				},
+				"Response Time is below than 500 ms": {
+					"pass": 9,
+					"fail": 0
+				},
+				"Verify that all values are correct ": {
+					"pass": 0,
+					"fail": 9
+				}
+			},
+			"times": [
+				377,
+				304,
+				322,
+				315,
+				322,
+				309,
+				301,
+				320,
+				307
+			],
+			"allTests": [
+				{
+					"Status code is 200": false,
+					"Response Time is below than 500 ms": true,
+					"Verify that all values are correct ": false
+				},
+				{
+					"Status code is 200": false,
+					"Response Time is below than 500 ms": true,
+					"Verify that all values are correct ": false
+				},
+				{
+					"Status code is 200": false,
+					"Response Time is below than 500 ms": true,
+					"Verify that all values are correct ": false
+				},
+				{
+					"Status code is 200": false,
+					"Response Time is below than 500 ms": true,
+					"Verify that all values are correct ": false
+				},
+				{
+					"Status code is 200": false,
+					"Response Time is below than 500 ms": true,
+					"Verify that all values are correct ": false
+				},
+				{
+					"Status code is 200": false,
+					"Response Time is below than 500 ms": true,
+					"Verify that all values are correct ": false
+				},
+				{
+					"Status code is 200": false,
+					"Response Time is below than 500 ms": true,
+					"Verify that all values are correct ": false
+				},
+				{
+					"Status code is 200": false,
+					"Response Time is below than 500 ms": true,
+					"Verify that all values are correct ": false
+				},
+				{
+					"Status code is 200": false,
+					"Response Time is below than 500 ms": true,
+					"Verify that all values are correct ": false
+				}
+			]
+		}
+	],
+	"count": 9,
+	"totalTime": 2877,
+	"collection": {
+		"requests": [
+			{
+				"id": "a8046a2f-1c3f-4217-a22d-0fe7f862ffa9",
+				"method": "POST"
+			}
+		]
+	}
+}
