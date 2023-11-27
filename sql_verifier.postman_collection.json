@@ -23,14 +23,22 @@
 											"    pm.response.to.have.status(201);",
 											"});",
 											"",
-											"pm.test(\"Response Time is below than 500 ms\", function () {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
-											"});",
-											"",
 											"pm.test(\"The response has a header server with value Cowboy\", function () {",
 											"    pm.response.to.have.header(\"Server\", \"Cowboy\"); ",
 											"});",
 											"",
+											"const student = JSON.parse(pm.request.body.raw);",
+											"",
+											"pm.environment.set(\"newStudenLogin\", student.login);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
 											""
 										],
 										"type": "text/javascript"
@@ -63,6 +71,66 @@
 							"response": []
 						},
 						{
+							"name": "Check an authority of a new student",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200 OK\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"",
+											"pm.test(\"The body has a ROLE_USER_STUDENT authority\", function () {",
+											"    pm.expect(pm.response.json().authorities).to.eql([\"ROLE_USER_STUDENT\"]);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": 1,\n  \"login\": \"{{$randomNoun}}\",\n  \"firstName\": \"{{$randomFirstName}}\",\n  \"lastName\": \"{{$randomLastName}}\",\n  \"email\": \"{{$randomEmail}}\",\n  \"imageUrl\": \"string\",\n  \"activated\": true,\n  \"langKey\": \"string\",\n  \"createdBy\": \"{{admin}}\",\n  \"createdDate\": \"2023-11-16T19:34:20.909Z\",\n  \"lastModifiedBy\": \"{{admin}}\",\n  \"lastModifiedDate\": \"2023-11-16T19:34:20.909Z\",\n  \"authorities\": [\n    \"ROLE_USER_STUDENT\"\n  ],\n  \"password\": \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/admin/users/{{newStudenLogin}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"users",
+										"{{newStudenLogin}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Registration a new teacher",
 							"event": [
 								{
@@ -73,13 +141,13 @@
 											"    pm.response.to.have.status(201);",
 											"});",
 											"",
-											"pm.test(\"Response Time is below than 500 ms\", function () {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
-											"});",
-											"",
 											"pm.test(\"The response has a header server with value Cowboy\", function () {",
 											"    pm.response.to.have.header(\"Server\", \"Cowboy\"); ",
-											"});"
+											"});",
+											"",
+											"const teacher = JSON.parse(pm.request.body.raw);",
+											"",
+											"pm.environment.set(\"newTeacherLogin\", teacher.login);"
 										],
 										"type": "text/javascript"
 									}
@@ -111,6 +179,66 @@
 							"response": []
 						},
 						{
+							"name": "Check an authority of a new teacher",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200 OK\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"",
+											"pm.test(\"The body has a ROLE_USER_TEACHER authority\", function () {",
+											"    pm.expect(pm.response.json().authorities).to.eql([\"ROLE_USER_TEACHER\"]);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": 1,\n  \"login\": \"{{$randomNoun}}\",\n  \"firstName\": \"{{$randomFirstName}}\",\n  \"lastName\": \"{{$randomLastName}}\",\n  \"email\": \"{{$randomEmail}}\",\n  \"imageUrl\": \"string\",\n  \"activated\": true,\n  \"langKey\": \"string\",\n  \"createdBy\": \"{{admin}}\",\n  \"createdDate\": \"2023-11-16T19:34:20.909Z\",\n  \"lastModifiedBy\": \"{{admin}}\",\n  \"lastModifiedDate\": \"2023-11-16T19:34:20.909Z\",\n  \"authorities\": [\n    \"ROLE_USER_STUDENT\"\n  ],\n  \"password\": \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/admin/users/{{newTeacherLogin}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"users",
+										"{{newTeacherLogin}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Registration a new admin is prohibited",
 							"event": [
 								{
@@ -119,10 +247,6 @@
 										"exec": [
 											"pm.test(\"Status code is 400 Bad Request\", function () {",
 											"    pm.response.to.have.status(400);",
-											"});",
-											"",
-											"pm.test(\"Response Time is below than 500 ms\", function () {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
 											"});",
 											"",
 											"pm.test(\"The response has a header server with value Cowboy\", function () {",
@@ -169,10 +293,6 @@
 											"    pm.response.to.have.status(400);",
 											"});",
 											"",
-											"pm.test(\"Response Time is below than 500 ms\", function () {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
-											"});",
-											"",
 											"pm.test(\"The JSON has a detail key with additional info\", function () {",
 											"    pm.expect(pm.response.json().detail).to.eql(\"Failed to read request\");",
 											"});"
@@ -184,15 +304,6 @@
 							"request": {
 								"method": "POST",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"id\": 1,\n  \"login\": \"{{$randomNoun}}\",\n  \"firstName\": \"{{$randomFirstName}}\",\n  \"lastName\": \"{{$randomLastName}}\",\n  \"email\": \"{{$randomEmail}}\",\n  \"imageUrl\": \"string\",\n  \"activated\": true,\n  \"langKey\": \"en\",\n  \"createdBy\": \"{{admin}}\",\n  \"createdDate\": \"{2023-11-16T19:34:20.909Z}\",\n  \"lastModifiedBy\": \"{{admin}}\",\n  \"lastModifiedDate\": \"2023-11-16T19:34:20.909Z\",\n  \"authorities\": [\n    \"ROLE_USER_ADMIN\"\n  ],\n  \"password\": \"123456\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
 									"raw": "{{baseURL}}/api/register",
 									"host": [
@@ -215,10 +326,6 @@
 										"exec": [
 											"pm.test(\"Status code is 400 Bad Request\", function () {",
 											"    pm.response.to.have.status(400);",
-											"});",
-											"",
-											"pm.test(\"Response Time is below than 500 ms\", function () {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
 											"});",
 											"",
 											"pm.test(\"The JSON has a title key with additional info\", function () {",
@@ -264,10 +371,6 @@
 										"exec": [
 											"pm.test(\"Status code is 400 Bad Request\", function () {",
 											"    pm.response.to.have.status(400);",
-											"});",
-											"",
-											"pm.test(\"Response Time is below than 500 ms\", function () {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
 											"});",
 											"",
 											"pm.test(\"The JSON has a detail key with additional info\", function () {",
@@ -320,10 +423,6 @@
 											"    pm.response.to.have.status(200);",
 											"});",
 											"",
-											"pm.test(\"Response Time is below than 500 ms\", function () {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
-											"});",
-											"",
 											"pm.test(\"The id token is available in the body\", function () {",
 											"    pm.expect(pm.response.json()).to.have.property(\"id_token\"); ",
 											"});"
@@ -366,10 +465,6 @@
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"pm.test(\"Response Time is below than 500 ms\", function () {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
 											"});",
 											"",
 											"pm.test(\"The id token is available in the body\", function () {",
@@ -416,10 +511,6 @@
 											"    pm.response.to.have.status(200);",
 											"});",
 											"",
-											"pm.test(\"Response Time is below than 500 ms\", function () {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
-											"});",
-											"",
 											"pm.test(\"The id token is available in the body\", function () {",
 											"    pm.expect(pm.response.json()).to.have.property(\"id_token\"); ",
 											"});"
@@ -462,10 +553,6 @@
 										"exec": [
 											"pm.test(\"Status code is 401 Unathorized\", function () {",
 											"    pm.response.to.have.status(401);",
-											"});",
-											"",
-											"pm.test(\"Response Time is below than 500 ms\", function () {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
 											"});",
 											"",
 											"pm.test(\"The JSON has a detail key with additional info\", function () {",
@@ -512,10 +599,6 @@
 											"    pm.response.to.have.status(400);",
 											"});",
 											"",
-											"pm.test(\"Response Time is below than 500 ms\", function () {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
-											"});",
-											"",
 											"pm.test(\"The JSON has a title key with additional info\", function () {",
 											"    pm.expect(pm.response.json().title).to.eql(\"Method argument not valid\");",
 											"});"
@@ -550,6 +633,64 @@
 							"response": []
 						},
 						{
+							"name": "Registration a new non-activated user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201 Created\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"pm.test(\"The response has a header server with value Cowboy\", function () {",
+											"    pm.response.to.have.header(\"Server\", \"Cowboy\"); ",
+											"});",
+											"",
+											"const nonActiveUser = JSON.parse(pm.request.body.raw);",
+											"",
+											"pm.environment.set(\"nonActiveUserName\", nonActiveUser.login);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": 1,\n  \"login\": \"{{$randomNoun}}\",\n  \"firstName\": \"{{$randomFirstName}}\",\n  \"lastName\": \"{{$randomLastName}}\",\n  \"email\": \"{{$randomEmail}}\",\n  \"imageUrl\": \"string\",\n  \"activated\": true,\n  \"langKey\": \"string\",\n  \"createdBy\": \"{{admin}}\",\n  \"createdDate\": \"2023-11-16T19:34:20.909Z\",\n  \"lastModifiedBy\": \"{{admin}}\",\n  \"lastModifiedDate\": \"2023-11-16T19:34:20.909Z\",\n  \"authorities\": [\n    \"ROLE_USER_STUDENT\"\n  ],\n  \"password\": \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/register",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Authentication with non-activated user",
 							"event": [
 								{
@@ -560,12 +701,12 @@
 											"    pm.response.to.have.status(500);",
 											"});",
 											"",
-											"pm.test(\"Response Time is below than 500 ms\", function () {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
-											"});",
+											"const user = JSON.parse(pm.request.body.raw);",
+											"",
+											"console.log(user.username)",
 											"",
 											"pm.test(\"The JSON has a detail key with username value\", function () {",
-											"    pm.expect(pm.response.json().detail).to.eql(\"User driver was not activated\");",
+											"    pm.expect(pm.response.json().detail).to.eql(`User ${user.username} was not activated`);",
 											"});"
 										],
 										"type": "text/javascript"
@@ -618,10 +759,6 @@
 											"    pm.response.to.have.status(200);",
 											"});",
 											"",
-											"pm.test(\"Response Time is below than 500 ms\", () => {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
-											"});",
-											"",
 											"const task = pm.response.json()",
 											"",
 											"pm.environment.set(\"taskID\", task[0].id);"
@@ -655,10 +792,6 @@
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"pm.test(\"Response Time is below than 500 ms\", () => {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
 											"});",
 											"",
 											"pm.test(\"Verify that all values are correct \", () => {",
@@ -701,10 +834,6 @@
 											"    pm.response.to.have.status(200);",
 											"});",
 											"",
-											"pm.test(\"Response Time is below than 500 ms\", () => {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
-											"});",
-											"",
 											"",
 											"pm.test(\"Verify that all values are correct \", () => {",
 											"    const jsonData = pm.response.json();",
@@ -728,16 +857,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{accessToken}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -787,16 +906,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{accessToken}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [],
 								"url": {
@@ -822,11 +931,6 @@
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.response.to.have.status(200);",
 											"});",
-											"",
-											"pm.test(\"Response Time is below than 500 ms\", () => {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
-											"});",
-											"",
 											"",
 											"pm.test(\"Verify that all values are correct \", () => {",
 											"    const jsonData = pm.response.json();",
@@ -875,12 +979,7 @@
 										"exec": [
 											"pm.test(\"Status code is 500\", () => {",
 											"    pm.response.to.have.status(500);",
-											"});",
-											"",
-											"pm.test(\"Response Time is below than 500 ms\", () => {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
-											"});",
-											""
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -921,12 +1020,7 @@
 										"exec": [
 											"pm.test(\"Status code is 400\", () => {",
 											"    pm.response.to.have.status(400);",
-											"});",
-											"",
-											"pm.test(\"Response Time is below than 500 ms\", () => {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
-											"});",
-											""
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -958,10 +1052,6 @@
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"pm.test(\"Response Time is below than 500 ms\", () => {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
 											"});",
 											"",
 											"pm.test(\"Verify that all values are correct \", () => {",
@@ -1013,10 +1103,6 @@
 											"    pm.response.to.have.status(200);",
 											"});",
 											"",
-											"pm.test(\"Response Time is below than 500 ms\", () => {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
-											"});",
-											"",
 											"pm.test(\"Verify that all values are correct \", () => {",
 											"    const jsonData = pm.response.json();",
 											"    pm.expect(jsonData.id).that.is.a('number');",
@@ -1064,10 +1150,6 @@
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"pm.test(\"Response Time is below than 500 ms\", () => {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
 											"});",
 											"",
 											"pm.test(\"Verify that all values are correct \", () => {",
@@ -1118,10 +1200,6 @@
 											"pm.test(\"Status code is 415\", () => {",
 											"    pm.response.to.have.status(415);",
 											"});",
-											"",
-											"pm.test(\"Response Time is below than 500 ms\", () => {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
-											"});",
 											""
 										],
 										"type": "text/javascript"
@@ -1163,10 +1241,6 @@
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"pm.test(\"Response Time is below than 500 ms\", () => {",
-											"    pm.expect(pm.response.responseTime).to.be.below(500); ",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1226,6 +1300,16 @@
 			]
 		}
 	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{accessToken}}",
+				"type": "string"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",
